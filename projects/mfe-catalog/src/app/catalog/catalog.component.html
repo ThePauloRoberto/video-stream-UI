@@ -1,0 +1,94 @@
+<section class="catalog-container">
+  <div class="catalog-header">
+    <div>
+      <span class="mfe-pill">MFE-Catalog • Porta 4201</span>
+      <h2>Catálogo de Vídeos (AWS S3 / LocalStack)</h2>
+      <p class="subtitle">
+        Consumindo <code>GET http://localhost:8080/api/v1/videos</code> •
+        {{ totalVideos() }} vídeo(s) • {{ totalSizeFormatted() }} no bucket
+      </p>
+    </div>
+
+    <div class="catalog-actions">
+      <input
+        type="search"
+        class="search-input"
+        placeholder="Filtrar por ID do vídeo..."
+        [value]="searchQuery()"
+        (input)="onSearchInput($event)" />
+
+      <label class="btn btn-upload" [class.disabled]="uploading()">
+        <input
+          type="file"
+          accept="video/*"
+          hidden
+          [disabled]="uploading()"
+          (change)="onFileSelected($event)" />
+        {{ uploading() ? 'Enviando ao S3...' : '⬆ Upload Vídeo' }}
+      </label>
+
+      <button class="btn btn-refresh" (click)="loadVideos()" [disabled]="loading()">
+        Atualizar
+      </button>
+    </div>
+  </div>
+
+  @if (uploadMessage()) {
+    <div class="alert alert-success">
+      <span>{{ uploadMessage() }}</span>
+      <button class="alert-close" (click)="uploadMessage.set(null)">✕</button>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-error">
+      <div>
+        <strong>Falha na operação:</strong> {{ error() }}
+        <p class="hint">Verifique se a API Spring Boot está rodando em <code>http://localhost:8080</code>.</p>
+      </div>
+      <button class="btn btn-refresh" (click)="loadVideos()">Tentar novamente</button>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Consultando bucket S3 (<code>GET /api/v1/videos</code>)...</p>
+    </div>
+  } @else if (filteredVideos().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🎞️</div>
+      <h3>Nenhum vídeo encontrado</h3>
+      <p>Use o botão <strong>⬆ Upload Vídeo</strong> acima ou o Swagger UI para enviar um arquivo <code>.mp4</code>.</p>
+    </div>
+  } @else {
+    <div class="video-grid">
+      @for (video of filteredVideos(); track video.id) {
+        <article class="video-card" (click)="openPlayer(video.id)">
+          <div class="card-thumbnail">
+            <div class="play-overlay">▶</div>
+            <span class="badge-format">{{ extractExtension(video.id) }}</span>
+            <span class="badge-size">{{ formatBytes(video.sizeBytes) }}</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="video-title" [title]="video.id">{{ video.id }}</h3>
+            <div class="video-meta">
+              <span>📦 {{ formatBytes(video.sizeBytes) }}</span>
+              <span>🕒 {{ video.lastModified | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="card-footer">
+              <code class="stream-route">/api/v1/videos/{{ video.id }}/stream</code>
+              <button
+                type="button"
+                class="btn-watch"
+                (click)="openPlayer(video.id); $event.stopPropagation()">
+                ▶ Assistir
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>
