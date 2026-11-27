@@ -1,0 +1,47 @@
+<div class="shell-layout">
+  <header class="navbar">
+    <div class="navbar-brand" routerLink="/catalog">
+      <span class="brand-icon">▶</span>
+      <div class="brand-text">
+        <h1>VideoStream</h1>
+        <span class="badge-mfe">Shell Host • Native Federation</span>
+      </div>
+    </div>
+
+    <nav class="navbar-nav">
+      <a
+        routerLink="/catalog"
+        routerLinkActive="active"
+        class="nav-link">
+        🎬 Catálogo (MFE-Catalog)
+      </a>
+      <a
+        [routerLink]="['/player', lastSelectedVideoId()]"
+        routerLinkActive="active"
+        class="nav-link">
+        📺 Player (MFE-Player)
+      </a>
+      <a
+        href="http://localhost:8080/swagger-ui.html"
+        target="_blank"
+        rel="noopener"
+        class="nav-link external">
+        ⚡ Swagger API
+      </a>
+    </nav>
+
+    <div class="navbar-status">
+      <span class="status-dot"></span>
+      <span class="status-label">{{ activeMfeLabel() }}</span>
+    </div>
+  </header>
+
+  <main class="shell-content">
+    <router-outlet />
+  </main>
+
+  <footer class="shell-footer">
+    <span>VideoStream UI • Angular 17+ Standalone &amp; Signals • Native Federation</span>
+    <span>API Backend: <code>http://localhost:8080/api/v1/videos</code> (HTTP Range 1 MB Chunks)</span>
+  </footer>
+</div>
