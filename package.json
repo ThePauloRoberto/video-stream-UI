@@ -1,0 +1,40 @@
+{
+  "name": "video-stream-ui",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "npm run start:all",
+    "start:shell": "ng serve shell",
+    "start:catalog": "ng serve mfe-catalog",
+    "start:player": "ng serve mfe-player",
+    "start:all": "concurrently -n \"CATALOG,PLAYER,SHELL\" -c \"cyan,magenta,green\" \"npm run start:catalog\" \"npm run start:player\" \"npm run start:shell\"",
+    "build:catalog": "ng build mfe-catalog",
+    "build:player": "ng build mfe-player",
+    "build:shell": "ng build shell",
+    "build:all": "npm run build:catalog && npm run build:player && npm run build:shell"
+  },
+  "dependencies": {
+    "@angular-architects/native-federation": "^17.1.8",
+    "@angular/animations": "^17.3.12",
+    "@angular/common": "^17.3.12",
+    "@angular/compiler": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/forms": "^17.3.12",
+    "@angular/platform-browser": "^17.3.12",
+    "@angular/platform-browser-dynamic": "^17.3.12",
+    "@angular/router": "^17.3.12",
+    "es-module-shims": "^1.10.0",
+    "rxjs": "~7.8.1",
+    "tslib": "^2.6.2",
+    "zone.js": "~0.14.10"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.11",
+    "@angular/cli": "^17.3.11",
+    "@angular/compiler-cli": "^17.3.12",
+    "@types/node": "^20.14.0",
+    "concurrently": "^8.2.2",
+    "typescript": "~5.4.5"
+  }
+}
