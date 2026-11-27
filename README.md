@@ -13,7 +13,7 @@ Frontend em **Angular 17+** estruturado em **Micro Front-Ends (Native Federation
 ## Como executar
 
 ```powershell
-cd "c:\Users\paulo\OneDrive\Documentos\projetos\video stream\video-stream-UI"
+cd "video-stream-UI"
 
 # 1. Instalar as dependências
 npm install
