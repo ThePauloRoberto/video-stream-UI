@@ -1,0 +1,253 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "shell": {
+      "projectType": "application",
+      "root": "projects/shell",
+      "sourceRoot": "projects/shell/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "shell:esbuild:production",
+            "rebuildDelay": 0,
+            "dev": false,
+            "port": 0
+          },
+          "configurations": {
+            "production": {
+              "target": "shell:esbuild:production"
+            },
+            "development": {
+              "target": "shell:esbuild:development",
+              "dev": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "shell:serve-original:development",
+            "rebuildDelay": 0,
+            "dev": true,
+            "port": 0
+          }
+        },
+        "esbuild": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/shell",
+            "index": "projects/shell/src/index.html",
+            "browser": "projects/shell/src/main.ts",
+            "polyfills": [
+              "zone.js",
+              "es-module-shims"
+            ],
+            "tsConfig": "projects/shell/tsconfig.app.json",
+            "assets": [
+              "projects/shell/src/assets"
+            ],
+            "styles": [
+              "projects/shell/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-original": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "shell:esbuild:production"
+            },
+            "development": {
+              "buildTarget": "shell:esbuild:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4200
+          }
+        }
+      }
+    },
+    "mfe-catalog": {
+      "projectType": "application",
+      "root": "projects/mfe-catalog",
+      "sourceRoot": "projects/mfe-catalog/src",
+      "prefix": "mfe-catalog",
+      "architect": {
+        "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "mfe-catalog:esbuild:production",
+            "rebuildDelay": 0,
+            "dev": false,
+            "port": 0
+          },
+          "configurations": {
+            "production": {
+              "target": "mfe-catalog:esbuild:production"
+            },
+            "development": {
+              "target": "mfe-catalog:esbuild:development",
+              "dev": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "mfe-catalog:serve-original:development",
+            "rebuildDelay": 0,
+            "dev": true,
+            "port": 0
+          }
+        },
+        "esbuild": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/mfe-catalog",
+            "index": "projects/mfe-catalog/src/index.html",
+            "browser": "projects/mfe-catalog/src/main.ts",
+            "polyfills": [
+              "zone.js",
+              "es-module-shims"
+            ],
+            "tsConfig": "projects/mfe-catalog/tsconfig.app.json",
+            "assets": [
+              "projects/mfe-catalog/src/assets"
+            ],
+            "styles": [
+              "projects/mfe-catalog/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-original": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "mfe-catalog:esbuild:production"
+            },
+            "development": {
+              "buildTarget": "mfe-catalog:esbuild:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201
+          }
+        }
+      }
+    },
+    "mfe-player": {
+      "projectType": "application",
+      "root": "projects/mfe-player",
+      "sourceRoot": "projects/mfe-player/src",
+      "prefix": "mfe-player",
+      "architect": {
+        "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "mfe-player:esbuild:production",
+            "rebuildDelay": 0,
+            "dev": false,
+            "port": 0
+          },
+          "configurations": {
+            "production": {
+              "target": "mfe-player:esbuild:production"
+            },
+            "development": {
+              "target": "mfe-player:esbuild:development",
+              "dev": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "mfe-player:serve-original:development",
+            "rebuildDelay": 0,
+            "dev": true,
+            "port": 0
+          }
+        },
+        "esbuild": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/mfe-player",
+            "index": "projects/mfe-player/src/index.html",
+            "browser": "projects/mfe-player/src/main.ts",
+            "polyfills": [
+              "zone.js",
+              "es-module-shims"
+            ],
+            "tsConfig": "projects/mfe-player/tsconfig.app.json",
+            "assets": [
+              "projects/mfe-player/src/assets"
+            ],
+            "styles": [
+              "projects/mfe-player/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-original": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "mfe-player:esbuild:production"
+            },
+            "development": {
+              "buildTarget": "mfe-player:esbuild:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4202
+          }
+        }
+      }
+    }
+  }
+}
