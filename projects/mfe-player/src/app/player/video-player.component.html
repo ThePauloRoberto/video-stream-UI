@@ -1,0 +1,89 @@
+<section class="player-page">
+  <div class="player-topbar">
+    <div>
+      <span class="mfe-pill">MFE-Player • Porta 4202</span>
+      <h2>Reprodutor de Vídeo (HTTP Range Requests • 1 MB Chunks)</h2>
+    </div>
+    <a routerLink="/catalog" class="btn-back">← Voltar ao Catálogo</a>
+  </div>
+
+  @if (!videoId()) {
+    <div class="empty-player">
+      <p>Nenhum ID de vídeo informado na rota.</p>
+      <a routerLink="/catalog" class="btn-back">Escolher um vídeo no Catálogo</a>
+    </div>
+  } @else {
+    <div class="player-stage">
+      <div class="video-wrapper">
+        <video
+          #videoElement
+          controls
+          autoplay
+          preload="metadata"
+          [src]="streamUrl()"
+          (loadedmetadata)="onLoadedMetadata(videoElement)"
+          (timeupdate)="onTimeUpdate(videoElement)"
+          (progress)="onProgress(videoElement)"
+          (error)="onVideoError()">
+          Seu navegador não suporta a tag HTML5 <code>&lt;video&gt;</code>.
+        </video>
+      </div>
+
+      @if (playerError()) {
+        <div class="player-alert">
+          <strong>Erro na reprodução:</strong> {{ playerError() }}
+        </div>
+      }
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>🎬 Dados do Vídeo</h3>
+          <dl>
+            <div>
+              <dt>ID do Vídeo:</dt>
+              <dd><code>{{ videoId() }}</code></dd>
+            </div>
+            <div>
+              <dt>Content-Type:</dt>
+              <dd><code>{{ metadata()?.contentType || 'video/mp4' }}</code></dd>
+            </div>
+            <div>
+              <dt>Tamanho Total:</dt>
+              <dd>{{ formatBytes(metadata()?.sizeBytes || 0) }}</dd>
+            </div>
+            <div>
+              <dt>ETag (S3):</dt>
+              <dd><code>{{ metadata()?.etag || '—' }}</code></dd>
+            </div>
+            <div>
+              <dt>Última Modificação:</dt>
+              <dd>{{ metadata()?.lastModified ? (metadata()?.lastModified | date:'dd/MM/yyyy HH:mm:ss') : '—' }}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="info-card">
+          <h3>⚡ Telemetria de Streaming (Signals)</h3>
+          <dl>
+            <div>
+              <dt>Endpoint de Stream:</dt>
+              <dd><code class="url-code">{{ streamUrl() }}</code></dd>
+            </div>
+            <div>
+              <dt>Progresso:</dt>
+              <dd>{{ formatSeconds(currentTime()) }} / {{ formatSeconds(duration()) }}</dd>
+            </div>
+            <div>
+              <dt>Buffer Carregado:</dt>
+              <dd>{{ bufferedPercent() }}% (via HTTP 206 Partial Content)</dd>
+            </div>
+            <div>
+              <dt>Tamanho Máx. do Chunk:</dt>
+              <dd><code>1 MB (1.048.576 bytes)</code> por Range Request</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  }
+</section>
